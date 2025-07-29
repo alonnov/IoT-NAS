@@ -312,6 +312,50 @@ cat /mnt/test/test.txt
 tail -f ./log.txt
 ```
 
+## 🧩 Plugin Example
+
+You can extend the system with plugins (shared libraries) that add new commands or behaviors at runtime. Below is an example of how to create, build, and use a plugin:
+
+### Example Plugin: `fw_plugin.cpp`
+
+```cpp
+#include <iostream>
+#include "Factory.hpp"
+#include "Handleton.hpp"
+#include "Framework.hpp"
+
+using namespace ilrd::details;
+
+class NewReadCommand : public ICommand {
+    std::pair<std::function<bool()>, std::chrono::milliseconds> Run(std::shared_ptr<ITaskArgs> args_) override {
+        (void)args_;
+        std::cout << "New" << std::endl;
+        return std::make_pair(nullptr, std::chrono::milliseconds(2000));
+    }
+};
+
+std::shared_ptr<ICommand> CreateNewReadCommand() {
+    return std::make_shared<NewReadCommand>();
+}
+
+__attribute__((constructor))
+void SoMain() {
+    ilrd::Handleton<Factory<int, ICommand>>::GetInstance()->Register(0, CreateNewReadCommand);
+    std::cout << "New" << std::endl;
+}
+```
+
+### Build the Plugin
+
+```bash
+g++ -fPIC -shared -o my_plugin.so fw_plugin.cpp -I./framework/include -I./concrete/include
+```
+
+### Use the Plugin
+
+1. Place the compiled `.so` file in the plugins directory (e.g., `./plugins` or `./framework/plugins`).
+2. When you run the framework, it will automatically load plugins from this directory at startup.
+
 ## 🔍 Troubleshooting
 
 ### Common Issues
@@ -370,52 +414,6 @@ g++ -DNDEBUG your_files.cpp -o your_program
 - **Clean production code** - no debug noise in logs
 - **Standard approach** - widely used in professional development
 - **Compile-time optimization** - debug code doesn't even exist in release builds
-
-
-## 🧩 Plugin Example
-
-You can extend the system with plugins (shared libraries) that add new commands or behaviors at runtime. Below is an example of how to create, build, and use a plugin:
-
-### Example Plugin: `fw_plugin.cpp`
-
-```cpp
-#include <iostream>
-#include "Factory.hpp"
-#include "Handleton.hpp"
-#include "Framework.hpp"
-
-using namespace ilrd::details;
-
-class NewReadCommand : public ICommand {
-    std::pair<std::function<bool()>, std::chrono::milliseconds> Run(std::shared_ptr<ITaskArgs> args_) override {
-        (void)args_;
-        std::cout << "New" << std::endl;
-        return std::make_pair(nullptr, std::chrono::milliseconds(2000));
-    }
-};
-
-std::shared_ptr<ICommand> CreateNewReadCommand() {
-    return std::make_shared<NewReadCommand>();
-}
-
-__attribute__((constructor))
-void SoMain() {
-    ilrd::Handleton<Factory<int, ICommand>>::GetInstance()->Register(0, CreateNewReadCommand);
-    std::cout << "New" << std::endl;
-}
-```
-
-### Build the Plugin
-
-```bash
-g++ -fPIC -shared -o my_plugin.so fw_plugin.cpp -I./framework/include -I./concrete/include
-```
-
-### Use the Plugin
-
-1. Place the compiled `.so` file in the plugins directory (e.g., `./plugins` or `./framework/plugins`).
-2. When you run the framework, it will automatically load plugins from this directory at startup.
-
 
 ## 📝 License
 
