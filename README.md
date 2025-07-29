@@ -372,14 +372,6 @@ g++ -DNDEBUG your_files.cpp -o your_program
 - **Compile-time optimization** - debug code doesn't even exist in release builds
 
 
-
-## 📝 License
-
-This project was created as an educational exercise by Alon Nov.
-
-
----
-
 ## 🧩 Plugin Example
 
 You can extend the system with plugins (shared libraries) that add new commands or behaviors at runtime. Below is an example of how to create, build, and use a plugin:
@@ -424,3 +416,10 @@ g++ -fPIC -shared -o my_plugin.so fw_plugin.cpp -I./framework/include -I./concre
 1. Place the compiled `.so` file in the plugins directory (e.g., `./plugins` or `./framework/plugins`).
 2. When you run the framework, it will automatically load plugins from this directory at startup.
 
+
+## 📝 License
+
+This project was created as an educational exercise by Alon Nov.
+
+
+---
