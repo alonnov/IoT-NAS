@@ -1,4 +1,4 @@
-# IoT UDP Communication System
+# IoT device based NAS
 
 A distributed storage system that uses UDP communication between a master node and multiple IoT minion devices. The system implements a Network Block Device (NBD) interface for storage operations with fault tolerance through backup minions.
 
