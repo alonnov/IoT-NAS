@@ -41,7 +41,9 @@ The system is built on a **generic, modular framework** that provides:
 - **ThreadPool**: Worker thread management for parallel processing
 - **Factory**: Dynamic object creation and registration system
 
-This modular design allows the framework to be easily adapted for different use cases beyond IoT storage, such as:
+This modular design allows the framework to be easily 
+    adapted for different use cases beyond IoT storage, 
+    such as:
 - Network servers
 - Data processing pipelines
 - Real-time systems
@@ -316,7 +318,6 @@ tail -f ./log.txt
 
 You can extend the system with plugins (shared libraries) that add new commands or behaviors at runtime. Below is an example of how to create, build, and use a plugin:
 
-### Example Plugin: `fw_plugin.cpp`
 
 ```cpp
 #include <iostream>
@@ -330,7 +331,12 @@ class NewReadCommand : public ICommand {
     std::pair<std::function<bool()>, std::chrono::milliseconds> Run(std::shared_ptr<ITaskArgs> args_) override {
         (void)args_;
         std::cout << "New" << std::endl;
-        return std::make_pair(nullptr, std::chrono::milliseconds(2000));
+        
+        auto callback = []() -> bool {
+            std::cout << "Callback executed!" << std::endl;
+            return true;
+        };
+        return std::make_pair(callback, std::chrono::milliseconds(2000));
     }
 };
 
@@ -354,7 +360,7 @@ g++ -fPIC -shared -o my_plugin.so fw_plugin.cpp -I./framework/include -I./concre
 ### Use the Plugin
 
 1. Place the compiled `.so` file in the plugins directory (e.g., `./plugins` or `./framework/plugins`).
-2. When you run the framework, it will automatically load plugins from this directory at startup.
+2. The framework will automatically detect and load new plugins from this directory during runtime—no restart required.
 
 ## 🔍 Troubleshooting
 
@@ -415,9 +421,12 @@ g++ -DNDEBUG your_files.cpp -o your_program
 - **Standard approach** - widely used in professional development
 - **Compile-time optimization** - debug code doesn't even exist in release builds
 
+
+
 ## 📝 License
 
 This project was created as an educational exercise by Alon Nov.
 
 
 ---
+
