@@ -2,7 +2,7 @@
 
 A distributed storage system that uses UDP communication between a master node and multiple IoT minion devices. The system implements a Network Block Device (NBD) interface for storage operations with fault tolerance through backup minions.
 
-## 🏗️ Architecture
+## Architecture
 
 ### Components
 
@@ -13,24 +13,24 @@ A distributed storage system that uses UDP communication between a master node a
 
 ### Key Features
 
-- ✅ **Distributed Storage**: Data distributed across multiple minion devices
-- ✅ **Fault Tolerance**: Backup minions for data redundancy
-- ✅ **UDP Communication**: Lightweight protocol for IoT devices
-- ✅ **NBD Interface**: Standard block device interface
-- ✅ **Multi-threaded**: Concurrent operation handling
-- ✅ **Plugin System**: Extensible command system
+- **Distributed Storage**: Data distributed across multiple minion devices
+- **Fault Tolerance**: Backup minions for data redundancy
+- **UDP Communication**: Lightweight protocol for IoT devices
+- **NBD Interface**: Standard block device interface
+- **Multi-threaded**: Concurrent operation handling
+- **Plugin System**: Extensible command system
 
 ### Framework Design
 
 The system is built on a **generic, modular framework** that provides:
 
-- **🔄 Reactor Pattern**: Event-driven architecture for handling multiple I/O operations
-- **🏭 Factory Pattern**: Dynamic command creation and registration
-- **🎯 Singleton Pattern**: Global service management through Handleton
-- **🧵 Thread Pool**: Efficient concurrent task execution
-- **🔌 Plugin System**: Hot-swappable command modules
-- **📝 Logger**: Centralized logging with configurable levels
-- **⚡ Async Operations**: Non-blocking task execution with callbacks
+- **Reactor Pattern**: Event-driven architecture for handling multiple I/O operations
+- **Factory Pattern**: Dynamic command creation and registration
+- **Singleton Pattern**: Global service management through Handleton
+- **Thread Pool**: Efficient concurrent task execution
+- **Plugin System**: Hot-swappable command modules
+- **Logger**: Centralized logging with configurable levels
+- **Async Operations**: Non-blocking task execution with callbacks
 
 #### Modular Components
 
@@ -49,7 +49,7 @@ This modular design allows the framework to be easily
 - Real-time systems
 - Microservices architecture
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 final_project/
@@ -148,7 +148,7 @@ final_project/
 └── README.md                   # Project documentation
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -273,7 +273,7 @@ echo "Hello IoT World!" > /mnt/test/test.txt
 cat /mnt/test/test.txt
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Network Configuration
 
@@ -287,7 +287,7 @@ cat /mnt/test/test.txt
 - **Backup Strategy**: Each minion has a backup minion
 - **Data Distribution**: Round-robin across minions
 
-## 🧪 Testing
+## Testing
 
 ### Quick Start Test
 
@@ -314,7 +314,7 @@ cat /mnt/test/test.txt
 tail -f ./log.txt
 ```
 
-## 🧩 Plugin Example
+## Plugin Example
 
 You can extend the system with plugins (shared libraries) that add new commands or behaviors at runtime. Below is an example of how to create, build, and use a plugin:
 
@@ -423,7 +423,7 @@ g++ -DNDEBUG your_files.cpp -o your_program
 
 
 
-## 📝 License
+## License
 
 This project was created as an educational exercise by Alon Nov.
 
