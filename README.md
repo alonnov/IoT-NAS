@@ -362,7 +362,7 @@ g++ -fPIC -shared -o my_plugin.so fw_plugin.cpp -I./framework/include -I./concre
 1. Place the compiled `.so` file in the plugins directory (e.g., `./plugins` or `./framework/plugins`).
 2. The framework will automatically detect and load new plugins from this directory during runtime—no restart required.
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
